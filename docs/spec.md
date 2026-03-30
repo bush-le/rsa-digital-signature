@@ -1,6 +1,18 @@
 ## RSA Digital Signature System
 
-> ⚠️ **NOTE:** This is the original specification. The current implementation uses **pure Python RSA** with flexible key sizes (512-2048 bits, default 1024) for educational purposes. For production systems, use 2048+ bits with optimized cryptography libraries.
+> ⚠️ **IMPORTANT NOTE:** This document contains the ORIGINAL specification. The **current implementation has been modified** for educational purposes:
+>
+> **Original Spec vs Current Implementation:**
+> | Aspect | Original Spec | Current Implementation |
+> |--------|---------------|----------------------|
+> | Implementation | cryptography library | Pure Python RSA |
+> | Key Sizes | ≥ 2048 bits (fixed) | 512-2048 bits (flexible, default 1024) |
+> | Padding | PSS | PKCS#1 v1.5 |
+> | Private Key Format | PKCS8 | Plain text (n, e, d, p, q) |
+> | Dependencies | cryptography, PyQt6, python-docx, PyPDF2 | PyQt6, python-docx, PyPDF2 only |
+> | Purpose | Production-ready | Educational implementation |
+>
+> See **PURE_PYTHON_RSA_GUIDE.md** for details on the pure Python implementation.
 
 ---
 

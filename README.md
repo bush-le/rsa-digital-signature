@@ -4,14 +4,16 @@ A complete, production-ready RSA digital signature application with PyQt6 GUI.
 
 ## Features
 
-✅ **RSA Key Generation** (1024-bit, pure Python implementation)
-- Secure key generation using cryptography library
-- PEM format with PKCS8 encryption
+✅ **RSA Key Generation** (Pure Python Implementation)
+- Generate keys from 512 to 2048 bits (default: 1024 bits)
+- Pure Python RSA using Miller-Rabin primality test
+- Flexible key sizes (512, 1024, 1536, 2048 bits) - Educational implementation
 - Keys saved to `/keys/` directory
+- Simple PEM format (plain text storage)
 
 ✅ **File Signing**
 - Sign any file type (binary-safe)
-- SHA-256 hash + PSS padding
+- SHA-256 hash + PKCS#1 v1.5 padding
 - Signatures saved with `.sig` extension
 
 ✅ **Signature Verification**
@@ -48,10 +50,11 @@ RSA_Digital_Signature/
 ## Requirements
 
 - Python ≥ 3.10
-- cryptography ≥ 41.0.0
 - PyQt6 ≥ 6.6.0
-- python-docx ≥ 0.8.11
-- PyPDF2 ≥ 3.0.0
+- python-docx ≥ 0.8.11 (optional)
+- PyPDF2 ≥ 3.0.0 (optional)
+
+**Note:** No cryptography library needed - Pure Python RSA implementation
 
 ## Installation
 
@@ -129,12 +132,14 @@ python test_e2e.py
 
 | Component | Specification |
 |-----------|---------------|
-| Algorithm | RSA |
+| Algorithm | RSA (Pure Python) |
 | Key Size | 512-2048 bits (default: 1024) |
 | Hash Function | SHA-256 |
-| Padding | PSS (Probabilistic Signature Scheme) |
-| Key Format | PEM |
-| Private Key | PKCS8 |
+| Padding | PKCS#1 v1.5 |
+| Key Format | PEM (plain text) |
+| Private Key Format | Plain text (n, e, d, p, q) |
+| Signature Size | 128 bytes (1024-bit keys) |
+| Implementation | Pure Python (no C dependencies) |
 
 ## Error Handling
 
@@ -151,10 +156,11 @@ All errors display user-friendly messages in the GUI.
 
 ✓ Private key never logged or exposed
 ✓ Input validation on all operations
-✓ Secure PSS padding
+✓ PKCS#1 v1.5 padding for signature security
 ✓ Flexible key size (512-2048 bits) - Educational implementation
 ✓ Binary-safe file operations
-✓ PEM format with no password (can be extended)
+✓ Pure Python RSA with Miller-Rabin primality test (k=40 rounds)
+✓ PEM format with plain text storage (can be extended with encryption)
 
 ## File Descriptions
 

@@ -141,10 +141,11 @@ When you run `python main.py`, this file loads the GUI and starts the app.
 **Purpose:** Lists all libraries the project needs.
 
 Contains:
-- `cryptography` → For RSA operations
 - `PyQt6` → For the GUI
 - `python-docx` → For document handling (optional)
 - `PyPDF2` → For PDF handling (optional)
+
+**Note:** No `cryptography` library needed - This project uses Pure Python RSA implementation!
 
 ---
 
