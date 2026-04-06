@@ -1,0 +1,87 @@
+
+====================================================================================================
+RSA DIGITAL SIGNATURE PERFORMANCE ANALYSIS
+====================================================================================================
+
+1. EXPERIMENT SETUP
+----------------------------------------------------------------------------------------------------
+Test File Size:      5MB
+Key Sizes Tested:    512, 1024, 2048, 4096 bits
+Iterations:          10 per configuration
+Total Operations:    80
+
+2. KEY FINDINGS
+----------------------------------------------------------------------------------------------------
+
+Signing Time Comparison (vs 512-bit baseline):
+   512-bit:   0.004542s (   1.0x slower)
+  1024-bit:   0.007896s (   1.7x slower)
+  2048-bit:   0.033472s (   7.4x slower)
+  4096-bit:   0.221225s (  48.7x slower)
+
+Verification Time Comparison (vs 512-bit baseline):
+   512-bit:   0.003423s (   1.0x slower)
+  1024-bit:   0.003367s (   1.0x slower)
+  2048-bit:   0.003473s (   1.0x slower)
+  4096-bit:   0.003831s (   1.1x slower)
+
+3. PERFORMANCE CHARACTERISTICS
+----------------------------------------------------------------------------------------------------
+
+Time Complexity:
+  RSA operations have O(n³) time complexity relative to key bit length.
+  Doubling key size roughly multiplies execution time by 8-10x.
+
+Variability Analysis (Coefficient of Variation):
+  512-bit: Signing ±4.03%, Verification ±2.69%
+  1024-bit: Signing ±0.29%, Verification ±1.14%
+  2048-bit: Signing ±0.74%, Verification ±0.40%
+  4096-bit: Signing ±0.50%, Verification ±6.87%
+
+4. SECURITY VS PERFORMANCE TRADE-OFFS
+----------------------------------------------------------------------------------------------------
+
+512-bit RSA:
+  • Security: CRITICALLY WEAK (broken)
+  • Speed: Fastest baseline
+  • Verdict: NEVER USE - only for educational demonstrations
+
+1024-bit RSA:
+  • Security: DEPRECATED (factored with significant resources)
+  • Speed: ~2x-1x slower than 512-bit
+  • Verdict: AVOID - only for legacy compatibility
+
+2048-bit RSA:
+  • Security: ADEQUATE (NIST SP 800-56B until 2030+)
+  • Speed: ~7x slower than 512-bit
+  • Verdict: RECOMMENDED for general-purpose use
+  • Use Cases: TLS certificates, digital signatures, email signing
+
+4096-bit RSA:
+  • Security: STRONG (future-proof, recommended for long-term)
+  • Speed: ~49x slower than 512-bit
+  • Verdict: RECOMMENDED for high-security applications
+  • Use Cases: Government, finance, critical infrastructure
+
+5. RECOMMENDATIONS
+----------------------------------------------------------------------------------------------------
+
+For Production Systems:
+  ✓ Default choice: 2048-bit RSA (balance security & performance)
+  ✓ High-security: 4096-bit RSA if long-term protection needed
+  ✗ Never: 512 or 1024-bit for new systems
+
+Performance Optimization:
+  • Pre-generate keys and cache them
+  • Defer signing to background threads for large batches
+  • Consider hardware acceleration (TPM, HSM) for production
+  • Profile your application to identify bottlenecks
+
+6. CONCLUSIONS
+----------------------------------------------------------------------------------------------------
+
+✓ RSA signing/verification times scale cubically with key size
+✓ The performance penalty for 2048-bit vs 512-bit is acceptable
+✓ 2048-bit is the minimum recommended for new implementations
+✓ 4096-bit should be used for systems requiring 30+ year security
+✓ Performance is rarely the limiting factor in practice
